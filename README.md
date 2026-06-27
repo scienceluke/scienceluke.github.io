@@ -3,19 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>scienceluke // ELECTRICAL ROCKETRY</title>
+    <title>AVS | Projects Portfolio</title>
     <style>
-        :root {
-            --bg-dark: #0b0f17;
-            --panel-bg: #121824;
-            --panel-border: #1f293d;
-            --neon-blue: #00f0ff;
-            --neon-green: #39ff14;
-            --neon-orange: #ffaa00;
-            --text-main: #e2e8f0;
-            --text-muted: #64748b;
-        }
-
         * {
             box-sizing: border-box;
             margin: 0;
@@ -23,326 +12,285 @@
         }
 
         body {
-            font-family: 'Courier New', Courier, monospace;
-            background-color: var(--bg-dark);
-            color: var(--text-main);
-            overflow-x: hidden;
-            background-image: 
-                radial-gradient(rgba(0, 240, 255, 0.05) 1px, transparent 0),
-                radial-gradient(rgba(57, 255, 20, 0.03) 1px, transparent 0);
-            background-size: 40px 40px;
-            background-position: 0 0, 20px 20px;
+            background-color: #ffffff;
+            color: #111111;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+            padding-top: 80px; /* Prevents header from covering content */
         }
 
-        /* Mission Control Top Bar */
+        /* Clean White Header Strip */
         header {
-            background-color: rgba(18, 24, 36, 0.95);
-            border-bottom: 2px solid var(--neon-blue);
-            padding: 15px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 5px 20px rgba(0, 240, 255, 0.15);
-        }
-
-        .sys-title {
-            font-size: 20px;
-            font-weight: bold;
-            color: var(--neon-blue);
-            text-shadow: 0 0 8px rgba(0, 240, 255, 0.5);
-            letter-spacing: 2px;
-        }
-
-        .nav-links a {
-            color: var(--text-main);
-            text-decoration: none;
-            margin-left: 20px;
-            font-size: 14px;
-            text-transform: uppercase;
-            transition: color 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: var(--neon-blue);
-            text-shadow: 0 0 5px var(--neon-blue);
-        }
-
-        /* Main Dashboard Grid Layout */
-        .dashboard {
-            max-width: 1400px;
-            margin: 30px auto;
-            padding: 0 20px;
-            display: grid;
-            grid-template-columns: 1fr 3fr;
-            gap: 25px;
-        }
-
-        @media (max-width: 900px) {
-            .dashboard {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Universal Panel Styling */
-        .panel {
-            background-color: var(--panel-bg);
-            border: 1px solid var(--panel-border);
-            border-radius: 8px;
-            padding: 25px;
-            position: relative;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-
-        .panel::before {
-            content: '';
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
-            width: 10px;
-            height: 10px;
-            border-top: 2px solid var(--neon-blue);
-            border-left: 2px solid var(--neon-blue);
-        }
-
-        .panel-title {
-            font-size: 16px;
-            color: var(--neon-blue);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 20px;
-            border-bottom: 1px dashed var(--panel-border);
-            padding-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        /* Left Column: Profile Card */
-        .profile-card {
-            text-align: center;
-        }
-
-        .logo-container {
-            width: 160px;
-            height: 160px;
-            margin: 0 auto 20px auto;
-            border-radius: 50%;
-            border: 2px dashed var(--neon-blue);
-            padding: 8px;
-            animation: spin 20s linear infinite;
-        }
-
-        @keyframes spin { 100% { transform: rotate(360deg); } }
-
-        .logo-container img {
             width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 50%;
-            transform: rotate(-12deg); /* Counteracts a bit of the loop frame rotation visually */
-        }
-
-        .profile-name {
-            font-size: 24px;
-            color: #fff;
-            letter-spacing: 1px;
-        }
-
-        .profile-tag {
-            color: var(--neon-orange);
-            font-size: 13px;
-            margin-top: 5px;
-            margin-bottom: 25px;
-            font-weight: bold;
-        }
-
-        .telemetry-item {
+            height: 70px;
+            background-color: #ffffff;
+            border-bottom: 1px solid #eaeaea;
             display: flex;
-            justify-content: space-between;
-            font-size: 13px;
-            margin-bottom: 12px;
-            padding: 6px;
-            background: rgba(255,255,255,0.02);
-            border-left: 2px solid var(--panel-border);
-        }
-
-        .telemetry-item span:first-child {
-            color: var(--text-muted);
-        }
-
-        .status-indicator {
-            display: inline-flex;
             align-items: center;
-            gap: 8px;
-            color: var(--neon-green);
-            font-weight: bold;
-            font-size: 14px;
-            margin-top: 15px;
+            padding: 0 40px;
+            z-index: 1000;
         }
 
-        .pulse-dot {
-            width: 8px;
-            height: 8px;
-            background-color: var(--neon-green);
-            border-radius: 50%;
-            box-shadow: 0 0 10px var(--neon-green);
-            animation: pulse 1.5s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(0.9); opacity: 0.6; }
-            50% { transform: scale(1.2); opacity: 1; box-shadow: 0 0 15px var(--neon-green); }
-            100% { transform: scale(0.9); opacity: 0.6; }
-        }
-
-        /* Right Column: Projects & Systems Display */
-        .display-area {
+        .logo-link {
             display: flex;
-            flex-direction: column;
-            gap: 25px;
+            align-items: center;
+            height: 100%;
+            text-decoration: none;
         }
 
-        /* Mission Log Feed / Intro */
-        .terminal-intro {
-            background-color: #060911;
-            font-size: 14px;
-            line-height: 1.6;
-            border-left: 3px solid var(--neon-blue);
+        .logo-img {
+            height: 40px; /* Adjust scale of your AVS logo */
+            width: auto;
+            object-fit: contain;
         }
 
-        .terminal-text {
-            color: var(--neon-green);
+        /* Main Project Grid Container */
+        main {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
         }
 
-        /* Project Section Layout */
+        .grid-heading {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 30px;
+            letter-spacing: -0.5px;
+        }
+
         .projects-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
         }
 
-        @media (max-width: 1100px) {
-            .projects-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
+        /* Professional Project Card Styles */
         .project-card {
-            background: rgba(255,255,255,0.01);
-            border: 1px solid var(--panel-border);
-            border-radius: 6px;
-            padding: 20px;
-            transition: all 0.3s ease;
+            background: #ffffff;
+            border: 1px solid #e5e5e5;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
         .project-card:hover {
-            border-color: var(--neon-blue);
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 240, 255, 0.05);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            border-color: #111111;
         }
 
-        .project-header {
+        .image-placeholder {
+            width: 100%;
+            height: 200px;
+            background-color: #f7f7f7;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            margin-bottom: 12px;
-        }
-
-        .project-id {
-            font-size: 11px;
-            color: var(--neon-orange);
-            background: rgba(255, 170, 0, 0.1);
-            padding: 2px 6px;
-            border-radius: 3px;
-        }
-
-        .project-title {
-            font-size: 18px;
-            color: #fff;
-            margin-bottom: 10px;
-        }
-
-        .project-desc {
+            justify-content: center;
+            color: #888888;
             font-size: 14px;
-            color: var(--text-muted);
-            line-height: 1.5;
-            margin-bottom: 15px;
-        }
-
-        /* Progress / Launch Stats Bar */
-        .stat-bar-container {
-            background: #000;
-            height: 6px;
-            border-radius: 3px;
+            border-bottom: 1px solid #e5e5e5;
             overflow: hidden;
-            margin-top: 10px;
         }
 
-        .stat-bar {
+        .image-placeholder img {
+            width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, var(--neon-blue), var(--neon-green));
+            object-fit: cover;
         }
 
-        .stat-labels {
+        .card-content {
+            padding: 20px;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .card-desc {
+            font-size: 14px;
+            color: #666666;
+            line-height: 1.5;
+        }
+
+        /* Fullscreen Project Page View (Modal Overlay) */
+        .project-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #ffffff;
+            z-index: 2000;
+            display: none;
+            overflow-y: auto;
+            padding: 60px 20px;
+        }
+
+        .modal-container {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: -20px;
+            right: 0;
+            background: none;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: #111111;
+        }
+
+        .modal-hero-img {
+            width: 100%;
+            height: 400px;
+            background-color: #f7f7f7;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            overflow: hidden;
             display: flex;
-            justify-content: space-between;
-            font-size: 11px;
-            color: var(--text-muted);
-            margin-top: 4px;
+            align-items: center;
+            justify-content: center;
+            color: #888888;
         }
 
-        /* Footer Console info */
-        footer {
-            text-align: center;
-            padding: 40px 20px;
-            color: var(--text-muted);
-            font-size: 12px;
-            border-top: 1px dashed var(--panel-border);
-            margin-top: 50px;
+        .modal-hero-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .modal-title {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            letter-spacing: -1px;
+        }
+
+        .modal-body {
+            font-size: 16px;
+            color: #333333;
+            line-height: 1.8;
         }
     </style>
 </head>
 <body>
 
-    <!-- MISSION INTERFACE HEADER -->
+    <!-- STICKY HEADER -->
     <header>
-        <div class="sys-title">SL_AVIONICS // MC: ONLINE</div>
-        <div class="nav-links">
-            <a href="#overview">Overview</a>
-            <a href="#projects">Projects</a>
-            <a href="#telemetry">Telemetry</a>
-        </div>
+        <a href="#" class="logo-link">
+            <!-- Automatically loads your AVS logo file -->
+            <img src="logo.png" alt="AVS Logo" class="logo-img" onerror="this.style.display='none'; this.after('AVS LOGO PLACEHOLDER')">
+        </a>
     </header>
 
-    <div class="dashboard">
-        
-        <!-- SIDEBAR PANEL: IDENTITY & REAL-TIME STATS -->
-        <aside class="panel profile-card" id="overview">
-            <div class="panel-title"><span>❖</span> System Operator</div>
-            
-            <div class="logo-container">
-                <!-- Points to your uploaded logo.png -->
-                <img src="logo.png" alt="ScienceLuke Rocketry Logo" onerror="this.src='https://unsplash.com'">
+    <!-- MAIN PORTFOLIO STREAM -->
+    <main>
+        <h2 class="grid-heading">Project Index</h2>
+        <div class="projects-grid">
+
+            <!-- PROJECT 1 -->
+            <div class="project-card" onclick="openProject(1)">
+                <div class="image-placeholder">
+                    <img src="project1.jpg" alt="" onerror="this.style.display='none';">
+                    <span>[ Click to Upload Image ]</span>
+                </div>
+                <div class="card-content">
+                    <div class="card-title" id="p1-title">Project 01 Title</div>
+                    <div class="card-desc" id="p1-desc">Click here to write a short overview statement about your first project system setup.</div>
+                </div>
             </div>
 
-            <h1 class="profile-name">scienceluke</h1>
-            <div class="profile-tag">AEROSPACE ELECTRICAL ENGINEER</div>
+            <!-- PROJECT 2 -->
+            <div class="project-card" onclick="openProject(2)">
+                <div class="image-placeholder">
+                    <img src="project2.jpg" alt="" onerror="this.style.display='none';">
+                    <span>[ Click to Upload Image ]</span>
+                </div>
+                <div class="card-content">
+                    <div class="card-title" id="p2-title">Project 02 Title</div>
+                    <div class="card-desc" id="p2-desc">Click here to write a short overview statement about your second project system setup.</div>
+                </div>
+            </div>
 
-            <div class="telemetry-item">
-                <span>SECTOR:</span>
-                <span>Electrical Rocketry</span>
+            <!-- PROJECT 3 -->
+            <div class="project-card" onclick="openProject(3)">
+                <div class="image-placeholder">
+                    <img src="project3.jpg" alt="" onerror="this.style.display='none';">
+                    <span>[ Click to Upload Image ]</span>
+                </div>
+                <div class="card-content">
+                    <div class="card-title" id="p3-title">Project 03 Title</div>
+                    <div class="card-desc" id="p3-desc">Click here to write a short overview statement about your third project system setup.</div>
+                </div>
             </div>
-            <div class="telemetry-item">
-                <span>SUB-SYS:</span>
-                <span>Avionics & Flight Code</span>
+
+            <!-- PROJECT 4 -->
+            <div class="project-card" onclick="openProject(4)">
+                <div class="image-placeholder">
+                    <img src="project4.jpg" alt="" onerror="this.style.display='none';">
+                    <span>[ Click to Upload Image ]</span>
+                </div>
+                <div class="card-content">
+                    <div class="card-title" id="p4-title">Project 04 Title</div>
+                    <div class="card-desc" id="p4-desc">Brief summary narrative description text goes right here.</div>
+                </div>
             </div>
-            <div class="telemetry-item">
-                <span>LOC:</span>
-                <span>Ground Control</span>
+
+            <!-- PROJECT 5 -->
+            <div class="project-card" onclick="openProject(5)">
+                <div class="image-placeholder">
+                    <img src="project5.jpg" alt="" onerror="this.style.display='none';">
+                    <span>[ Click to Upload Image ]</span>
+                </div>
+                <div class="card-content">
+                    <div class="card-title" id="p5-title">Project 05 Title</div>
+                    <div class="card-desc" id="p5-desc">Brief summary narrative description text goes right here.</div>
+                </div>
             </div>
-            <div class="telemetry-item">
-                <span>BUILD ENGINE:</span>
+
+            <!-- PROJECT 6 -->
+            <div class="project-card" onclick="openProject(6)">
+                <div class="image-placeholder">
+                    <img src="project6.jpg" alt="" onerror="this.style.display='none';">
+                    <span>[ Click to Upload Image ]</span>
+                </div>
+                <div class="card-content">
+                    <div class="card-title" id="p6-title">Project 06 Title</div>
+                    <div class="card-desc" id="p6-desc">Brief summary narrative description text goes right here.</div>
+                </div>
+            </div>
+
+            <!-- PROJECT 7 -->
+            <div class="project-card" onclick="openProject(7)">
+                <div class="image-placeholder">
+                    <img src="project7.jpg" alt="" onerror="this.style.display='none';">
+                    <span>[ Click to Upload Image ]</span>
+                </div>
+                <div class="card-content">
+                    <div class="card-title" id="p7-title">Project 07 Title</div>
+                    <div class="card-desc" id="p7-desc">Brief summary narrative description text goes right here.</div>
+                </div>
+            </div>
+
+            <!-- PROJECT 8 -->
+            <div class="project-card" onclick="openProject(8)">
+                <div class="image-placeholder">
+                    <img src="project8.jpg" alt="" onerror="this.style.display='none';">
+                    <span>[ Click to Upload Image ]</span>
+                </div>
+                <div class="card-content">
+                    <div class="card-title" id="p8-title">Project 08 Title</div>
+                    <div class="card-desc" id="p8-desc">Brief summary narrative description text goes right here.</div>
+                </div>
+            </div>
+
+            <!-- PROJECT 9 -->
+            <div class="project-card" onclick="openProject(9)">
