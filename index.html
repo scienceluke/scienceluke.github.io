@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AVS | Live Editor Portfolio</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #ffffff;
+            color: #111111;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+            padding-top: 80px;
+            padding-bottom: 120px;
+        }
+
+        /* Clean Header Strip */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 70px;
+            background-color: #ffffff;
+            border-bottom: 1px solid #eaeaea;
+            display: flex;
+            align-items: center;
+            padding: 0 40px;
+            z-index: 1000;
+        }
+
+        .logo-img {
+            height: 40px;
+            width: auto;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .grid-heading {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .mode-badge {
+            display: inline-block;
+            background: #e6f4ea;
+            color: #137333;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .project-card {
+            background: #ffffff;
+            border: 1px solid #e5e5e5;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .image-placeholder {
+            width: 100%;
+            height: 200px;
+            background-color: #f7f7f7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #888888;
+            font-size: 14px;
+            border-bottom: 1px solid #e5e5e5;
+            overflow: hidden;
+        }
+
+        .image-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 20px;
+        }
+
+        /* Editable text styles */
+        [contenteditable="true"] {
+            border: 1px dashed #4285f4;
+            background: #f8fafd;
+            padding: 4px;
+            border-radius: 4px;
+            outline: none;
+        }
+        
+        /* Locked solid text styles */
+        [contenteditable="false"] {
+            border: none;
+            background: transparent;
+            padding: 0;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .card-desc {
+            font-size: 14px;
+            color: #666666;
+            line-height: 1.5;
+        }
+
+        /* Fixed Bottom Control Bar */
+        .control-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: #111111;
+            color: white;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            z-index: 3000;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.2);
+        }
+
+        .lock-btn {
+            background: #4285f4;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .lock-btn:hover {
+            background: #357ae8;
+        }
+
+        .output-box {
+            width: 90%;
+            max-width: 800px;
+            height: 100px;
+            background: #222;
+            color: #34a853;
+            font-family: monospace;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #333;
+            display: none;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <img src="logo.png" alt="AVS Logo" class="logo-img" onerror="this.style.display='none'; this.after('AVS LOGO')">
+    </header>
+
+    <main>
+        <h2 class="grid-heading">AVS Aerospace Portfolio</h2>
+        <div class="mode-badge" id="statusBadge">⚙️ Live Editor Mode: Click text boxes to type content</div>
+        
+        <div class="projects-grid">
+
+            <!-- PROJECT 1 -->
+            <div class="project-card">
+                <div class="image-placeholder">
+                    <img src="project1.jpg" alt="" onerror="this.style.display='none';">
+                    <span>[ project1.jpg ]</span>
+                </div>
+                <div class="card-content">
+                    <div class="card-title" contenteditable="true" id="p1-t">Project 01 Title</div>
+                    <div class="card-desc" contenteditable="true" id="p1-d">Click here to write your custom text.</div>
+                </div>
+            </div>
+
+            <!-- PROJECT 2 -->
+            <div class="project-card">
+                <div class="image-placeholder">
+                    <img src="project2.jpg" alt="" onerror="this.style.display='none';">
+                    <span>[ project2.jpg ]</span>
+                </div>
+                <div class="card-content">
+                    <div class="card-title" contenteditable="true" id="p2-t">Project 02 Title</div>
+                    <div class="card-desc" contenteditable="true" id="p2-d">Click here to write your custom text.</div>
+                </div>
+            </div>
+
+            <!-- PROJECT 3 -->
+            <div class="project-card">
+                <div class="image-placeholder">
+                    <img src="project3.jpg" alt="" onerror="this.style.display='none';">
+                    <span>[ project3.jpg ]</span>
+                </div>
+                <div class="card-content">
+                    <div class="card-title" contenteditable="true" id="p3-t">Project 03 Title</div>
+                    <div class="card-desc" contenteditable="true" id="p3-d">Click here to write your custom text.</div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- LOCK CONTROL PANEL -->
+    <div class="control-bar" id="controlBar">
+        <button class="lock-btn" onclick="lockAndFreeze()">🔒 Lock Layout & Freeze Code</button>
+        <p style="font-size: 12px; color: #aaa;">Clicking this removes the dashed lines and locks text solid.</p>
+        <textarea class="output-box" id="outputCode" readonly placeholder="Your production-ready production code will appear here..."></textarea>
+    </div>
+
+    <script>
+        function lockAndFreeze() {
+            // 1. Turn off editing features completely
+            const editables = document.querySelectorAll('[contenteditable="true"]');
+            editables.forEach(el => {
+                el.setAttribute('contenteditable', 'false');
+            });
+
+            // 2. Clear out the editor background indicators
+            document.getElementById('statusBadge').style.background = '#feefec';
+            document.getElementById('statusBadge').style.color = '#c5221f';
+            document.getElementById('statusBadge').innerText = '🔒 Production Mode: Layout Frozen Solid';
+            
+            // 3. Hide the control button panel elements so they don't get saved into your site
+            document.getElementById('controlBar').style.background = '#222';
+            document.querySelector('.lock-btn').style.display = 'none';
+            
+            // 4. Generate the finished code block for your clipboard
+            const outputBox = document.getElementById('outputCode');
+            outputBox.style.display = 'block';
+            
+            // Remove the control panel out of the final clean code output string
+            document.getElementById('controlBar').remove();
+            document.getElementById('statusBadge').remove();
+            
+            // Output final text code
+            outputBox.value = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
+            outputBox.select();
+            
+            alert("Layout Locked! Copy the complete code highlighted in the green box at the bottom and update your index.html file on GitHub to make it permanent!");
+        }
+    </script>
+
+</body>
+</html>
