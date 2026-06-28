@@ -1,1 +1,1187 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AVS — Aerospace Rocketry</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --white: #ffffff;
+    --off: #f7f7f7;
+    --ink: #0d0d0d;
+    --mid: #6b6b6b;
+    --rule: #e4e4e4;
+    --accent: #0d0d0d;
+    --header-h: 64px;
+    --radius: 4px;
+    --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Space Grotesk', sans-serif;
+    background: var(--white);
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── HEADER ── */
+  header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: var(--header-h);
+    background: rgba(255,255,255,0.96);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--rule);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+    z-index: 100;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .logo-mark {
+    width: 36px;
+    height: 36px;
+    position: relative;
+    flex-shrink: 0;
+  }
+
+  .logo-wordmark {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+  }
+
+  .logo-wordmark .avs {
+    font-family: 'Space Mono', monospace;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+  }
+
+  .logo-wordmark .tagline {
+    font-size: 9px;
+    font-weight: 400;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-top: 3px;
+  }
+
+  nav {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+
+  nav a {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--mid);
+    text-decoration: none;
+    transition: color 0.2s var(--ease);
+  }
+
+  nav a:hover { color: var(--ink); }
+
+  nav .cta {
+    padding: 8px 18px;
+    border: 1px solid var(--ink);
+    color: var(--ink);
+    border-radius: 2px;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    transition: background 0.2s var(--ease), color 0.2s var(--ease);
+  }
+
+  nav .cta:hover { background: var(--ink); color: var(--white); }
+
+  /* ── HERO ── */
+  .hero {
+    margin-top: var(--header-h);
+    padding: 80px 40px 64px;
+    border-bottom: 1px solid var(--rule);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: end;
+  }
+
+  .hero-left {}
+
+  .hero-eyebrow {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 24px;
+    height: 1px;
+    background: var(--mid);
+  }
+
+  .hero-title {
+    font-size: clamp(40px, 5vw, 68px);
+    font-weight: 700;
+    line-height: 1.0;
+    letter-spacing: -0.025em;
+    margin-bottom: 28px;
+  }
+
+  .hero-title em {
+    font-style: normal;
+    color: var(--mid);
+  }
+
+  .hero-body {
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--mid);
+    max-width: 420px;
+  }
+
+  .hero-right {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    padding-bottom: 4px;
+  }
+
+  .hero-stats {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    gap: 0;
+    border: 1px solid var(--rule);
+  }
+
+  .stat {
+    padding: 24px 28px;
+    border-right: 1px solid var(--rule);
+    text-align: center;
+  }
+
+  .stat:last-child { border-right: none; }
+
+  .stat-val {
+    font-family: 'Space Mono', monospace;
+    font-size: 28px;
+    font-weight: 700;
+    display: block;
+    letter-spacing: -0.02em;
+  }
+
+  .stat-label {
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--mid);
+    display: block;
+    margin-top: 6px;
+  }
+
+  /* ── SECTION HEADER ── */
+  .section-header {
+    padding: 48px 40px 32px;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .section-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--mid);
+  }
+
+  .section-title {
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin-top: 8px;
+  }
+
+  .section-meta {
+    font-size: 12px;
+    color: var(--mid);
+    letter-spacing: 0.05em;
+  }
+
+  /* ── PROJECT GRID ── */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    border-left: 1px solid var(--rule);
+  }
+
+  .project-card {
+    border-right: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    cursor: pointer;
+    transition: background 0.2s var(--ease);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .project-card:hover { background: var(--off); }
+
+  .project-card:hover .card-arrow { opacity: 1; transform: translate(0, 0); }
+
+  .card-image {
+    width: 100%;
+    aspect-ratio: 16/9;
+    background: var(--off);
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid var(--rule);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .card-image svg {
+    opacity: 0.18;
+    transition: opacity 0.3s var(--ease), transform 0.4s var(--ease);
+  }
+
+  .project-card:hover .card-image svg {
+    opacity: 0.32;
+    transform: scale(1.04);
+  }
+
+  .card-number {
+    position: absolute;
+    top: 14px;
+    left: 16px;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    color: var(--mid);
+  }
+
+  .card-status {
+    position: absolute;
+    top: 14px;
+    right: 16px;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 4px 8px;
+    border: 1px solid currentColor;
+    border-radius: 1px;
+  }
+
+  .status-active { color: #1a8a4a; }
+  .status-dev { color: #a06d1a; }
+  .status-archive { color: var(--mid); }
+  .status-planned { color: #4a6d9e; }
+
+  .card-body {
+    padding: 20px 22px 22px;
+  }
+
+  .card-category {
+    font-size: 9px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 8px;
+  }
+
+  .card-title {
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.25;
+    margin-bottom: 8px;
+  }
+
+  .card-desc {
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--mid);
+    margin-bottom: 16px;
+  }
+
+  .card-meta {
+    display: flex;
+    gap: 16px;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--mid);
+    border-top: 1px solid var(--rule);
+    padding-top: 14px;
+  }
+
+  .card-meta span { display: flex; flex-direction: column; gap: 2px; }
+  .card-meta strong { color: var(--ink); font-size: 12px; }
+
+  .card-arrow {
+    position: absolute;
+    bottom: 22px;
+    right: 22px;
+    width: 28px;
+    height: 28px;
+    opacity: 0;
+    transform: translate(-4px, 4px);
+    transition: opacity 0.2s var(--ease), transform 0.2s var(--ease);
+    color: var(--ink);
+  }
+
+  /* ── MODAL ── */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(13,13,13,0.6);
+    z-index: 200;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s var(--ease);
+    overflow-y: auto;
+    padding: 0;
+  }
+
+  .modal-overlay.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .modal {
+    background: var(--white);
+    width: 100%;
+    min-height: 100vh;
+    transform: translateY(32px);
+    transition: transform 0.35s var(--ease);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .modal-overlay.open .modal { transform: translateY(0); }
+
+  .modal-header {
+    position: sticky;
+    top: 0;
+    background: rgba(255,255,255,0.97);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--rule);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+    height: 60px;
+    z-index: 10;
+  }
+
+  .modal-close {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--mid);
+    padding: 8px 0;
+    transition: color 0.2s;
+  }
+
+  .modal-close:hover { color: var(--ink); }
+
+  .modal-breadcrumb {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    color: var(--mid);
+  }
+
+  .modal-hero {
+    aspect-ratio: 21/6;
+    background: var(--off);
+    border-bottom: 1px solid var(--rule);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .modal-hero-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    z-index: 1;
+    padding: 32px;
+  }
+
+  .modal-hero-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 16px;
+  }
+
+  .modal-hero-title {
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+  }
+
+  .modal-hero-bg {
+    position: absolute;
+    inset: 0;
+    opacity: 0.06;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .modal-body {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 0;
+    flex: 1;
+  }
+
+  .modal-main {
+    border-right: 1px solid var(--rule);
+    padding: 48px 48px 80px;
+  }
+
+  .modal-aside {
+    padding: 40px 32px 80px;
+  }
+
+  .log-section {
+    margin-bottom: 48px;
+  }
+
+  .log-section-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .log-section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--rule);
+  }
+
+  .log-section h2 {
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin-bottom: 16px;
+  }
+
+  .log-section p {
+    font-size: 14px;
+    line-height: 1.8;
+    color: #444;
+    margin-bottom: 14px;
+  }
+
+  /* Engineering log entries */
+  .log-entries { margin-top: 8px; }
+
+  .log-entry {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 0;
+    border-top: 1px solid var(--rule);
+    padding: 18px 0;
+  }
+
+  .log-date {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--mid);
+    padding-top: 3px;
+    letter-spacing: 0.06em;
+  }
+
+  .log-text { font-size: 13px; line-height: 1.7; color: #333; }
+  .log-text strong { font-weight: 600; color: var(--ink); display: block; margin-bottom: 4px; }
+
+  /* Charts */
+  .chart-block {
+    margin-bottom: 32px;
+    border: 1px solid var(--rule);
+    padding: 20px;
+  }
+
+  .chart-title {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    color: var(--ink);
+  }
+
+  .chart-canvas {
+    width: 100%;
+    height: 140px;
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    gap: 6px;
+    border-bottom: 1px solid var(--rule);
+    border-left: 1px solid var(--rule);
+    padding: 0 0 0 2px;
+  }
+
+  .chart-bar {
+    flex: 1;
+    background: var(--ink);
+    opacity: 0.12;
+    border-radius: 1px 1px 0 0;
+    transition: opacity 0.2s;
+    position: relative;
+  }
+
+  .chart-bar:hover { opacity: 0.4; }
+
+  .chart-bar.highlight { opacity: 0.85; }
+
+  .chart-bar-label {
+    position: absolute;
+    bottom: -22px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Space Mono', monospace;
+    font-size: 8px;
+    color: var(--mid);
+    white-space: nowrap;
+  }
+
+  .chart-labels {
+    margin-top: 28px;
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    color: var(--mid);
+  }
+
+  /* Spec table */
+  .spec-table { width: 100%; border-collapse: collapse; }
+
+  .spec-table tr { border-bottom: 1px solid var(--rule); }
+
+  .spec-table td {
+    padding: 10px 0;
+    font-size: 13px;
+    vertical-align: top;
+  }
+
+  .spec-table td:first-child {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--mid);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding-right: 16px;
+    width: 44%;
+  }
+
+  .spec-table td:last-child { font-weight: 500; }
+
+  /* Progress bars */
+  .progress-block { margin-bottom: 16px; }
+
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    margin-bottom: 6px;
+  }
+
+  .progress-label span:first-child { color: var(--mid); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; }
+  .progress-label span:last-child { font-family: 'Space Mono', monospace; font-size: 10px; font-weight: 700; }
+
+  .progress-track {
+    height: 3px;
+    background: var(--rule);
+    border-radius: 0;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: var(--ink);
+    border-radius: 0;
+  }
+
+  /* Aside sections */
+  .aside-section { margin-bottom: 36px; }
+
+  .aside-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  /* Line chart */
+  .line-chart {
+    width: 100%;
+    height: 100px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .line-chart svg { width: 100%; height: 100%; }
+
+  /* Footer */
+  footer {
+    border-top: 1px solid var(--rule);
+    padding: 32px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  footer p {
+    font-size: 11px;
+    color: var(--mid);
+    letter-spacing: 0.1em;
+    font-family: 'Space Mono', monospace;
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    header { padding: 0 20px; }
+    nav { gap: 16px; }
+    nav a:not(.cta) { display: none; }
+    .hero { grid-template-columns: 1fr; padding: 48px 20px 40px; gap: 32px; }
+    .hero-right { justify-content: flex-start; }
+    .section-header { padding: 36px 20px 24px; flex-direction: column; gap: 4px; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .modal-body { grid-template-columns: 1fr; }
+    .modal-aside { border-top: 1px solid var(--rule); }
+    .modal-main { padding: 32px 24px 48px; }
+    .modal-aside { padding: 32px 24px 48px; }
+    .modal-header { padding: 0 20px; }
+    footer { flex-direction: column; gap: 12px; text-align: center; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { transition-duration: 0.01ms !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <a href="#" class="logo">
+    <svg class="logo-mark" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="0.5" y="0.5" width="35" height="35" stroke="#0d0d0d" stroke-width="1"/>
+      <line x1="18" y1="30" x2="18" y2="6" stroke="#0d0d0d" stroke-width="1.5"/>
+      <polygon points="18,4 13,14 23,14" fill="#0d0d0d"/>
+      <line x1="10" y1="20" x2="26" y2="20" stroke="#0d0d0d" stroke-width="1"/>
+      <line x1="8" y1="26" x2="28" y2="26" stroke="#0d0d0d" stroke-width="0.75"/>
+    </svg>
+    <div class="logo-wordmark">
+      <span class="avs">AVS</span>
+      <span class="tagline">Aerospace · Rocketry</span>
+    </div>
+  </a>
+  <nav>
+    <a href="#">Projects</a>
+    <a href="#">Team</a>
+    <a href="#">Publications</a>
+    <a href="#" class="cta">Apply</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">Student Rocketry Division</div>
+    <h1 class="hero-title">Engineering<br>the next <em>launch</em><br>window.</h1>
+    <p class="hero-body">AVS designs, builds, and flies high-power rockets. From propulsion systems to avionics, our projects span the full engineering stack — documented, tested, and flown.</p>
+  </div>
+  <div class="hero-right">
+    <div class="hero-stats">
+      <div class="stat">
+        <span class="stat-val">34</span>
+        <span class="stat-label">Flights</span>
+      </div>
+      <div class="stat">
+        <span class="stat-val">18k</span>
+        <span class="stat-label">Max AGL ft</span>
+      </div>
+      <div class="stat">
+        <span class="stat-val">10</span>
+        <span class="stat-label">Active Projects</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<div class="section-header">
+  <div>
+    <div class="section-label">Project Registry</div>
+    <div class="section-title">All Projects</div>
+  </div>
+  <div class="section-meta">10 entries — FY 2023–2025</div>
+</div>
+
+<div class="projects-grid" id="projectsGrid">
+  <!-- Cards injected by JS -->
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 AVS — Aerospace Vehicle Systems</p>
+  <p>All engineering data is for educational use only</p>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal" id="modal">
+    <div class="modal-header">
+      <span class="modal-breadcrumb" id="modalBreadcrumb">Projects / —</span>
+      <button class="modal-close" id="modalClose" aria-label="Close project detail">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5">
+          <line x1="1" y1="1" x2="13" y2="13"/><line x1="13" y1="1" x2="1" y2="13"/>
+        </svg>
+        Close
+      </button>
+    </div>
+    <div class="modal-hero" id="modalHero">
+      <div class="modal-hero-bg" id="modalHeroBg"></div>
+      <div class="modal-hero-inner">
+        <div class="modal-hero-label" id="modalHeroLabel"></div>
+        <h1 class="modal-hero-title" id="modalTitle"></h1>
+      </div>
+    </div>
+    <div class="modal-body">
+      <div class="modal-main" id="modalMain"></div>
+      <div class="modal-aside" id="modalAside"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const projects = [
+  {
+    id: '001',
+    category: 'Propulsion',
+    title: 'Kestrel-1 Motor Test Stand',
+    desc: 'Static thrust measurement rig for motors up to L-class. Strain gauge load cell with real-time telemetry.',
+    status: 'active',
+    alt: 305,
+    mass: '14.2 kg',
+    thrust: '480 N',
+    specs: { 'Motor class': 'Up to L (1280 Ns)', 'Load cell': '0–700 N ±0.1%', 'Sample rate': '1 kHz', 'Data I/O': 'USB-C / SD card', 'Frame': '6061-T6 aluminium', 'Build year': '2024' },
+    logs: [
+      { date: '2025-03-12', title: 'Calibration run #7', body: 'Full static fire with AEROTECH K550W. Peak thrust measured at 559 N, 3.2% above manufacturer spec. Burn time 2.11 s. No anomalies.' },
+      { date: '2025-01-28', title: 'Strain gauge swap', body: 'Replaced HBM Z6FD1 50 kg cell — previous unit showed 0.4% drift at high temps. New unit baseline zeroed and verified.' },
+      { date: '2024-11-05', title: 'Initial commissioning', body: 'First live fire test with an Estes F39T motor. DAQ pipeline verified. Peak reading matched reference cell within 0.8%.' },
+    ],
+    progress: [{ label: 'Design', pct: 100 }, { label: 'Fabrication', pct: 100 }, { label: 'Calibration', pct: 82 }, { label: 'Documentation', pct: 64 }],
+    chartData: [38, 72, 120, 290, 480, 460, 310, 140, 60, 20, 8, 2],
+    chartLabels: ['0.1', '0.3', '0.5', '0.7', '0.9', '1.1', '1.3', '1.5', '1.7', '1.9', '2.1', '2.3'],
+    chartTitle: 'Thrust Curve — K550W (sample)',
+  },
+  {
+    id: '002',
+    category: 'Avionics',
+    title: 'Meridian Flight Computer v3',
+    desc: 'Dual-deploy flight computer with GPS, barometric altitude, 6-DOF IMU, and LoRa telemetry downlink.',
+    status: 'active',
+    alt: 18200,
+    mass: '48 g',
+    thrust: '—',
+    specs: { 'MCU': 'STM32H7 @ 480 MHz', 'Sensors': 'ICM-42688P + MS5611', 'Radio': 'SX1276 915 MHz LoRa', 'Battery': '1S 650 mAh LiPo', 'Pyro channels': '4× independent', 'PCB layers': '6-layer, 0.8 mm' },
+    logs: [
+      { date: '2025-04-02', title: 'Rev 3.1 spin complete', body: 'JLCPCB boards arrived. All passives and MCU placed. Smoke test passed. Firmware flashes successfully over SWD.' },
+      { date: '2025-02-19', title: 'LoRa range test', body: 'Ground-to-air range test via tethered balloon at 300 m AGL. Packet loss 0% at 915 MHz, 125 kHz BW, SF9.' },
+      { date: '2024-12-08', title: 'Kalman filter tuning', body: 'Updated sensor fusion: Q matrix adjusted for 10× reduction in apogee estimation error. RMSE now 8.4 m across 20 simulation runs.' },
+    ],
+    progress: [{ label: 'Hardware rev 3', pct: 100 }, { label: 'Firmware', pct: 90 }, { label: 'Ground testing', pct: 74 }, { label: 'Flight validation', pct: 30 }],
+    chartData: [10, 42, 110, 280, 620, 1400, 3200, 7800, 14200, 18200, 17100, 12300],
+    chartLabels: ['0', '5', '10', '15', '20', '25', '30', '35', '40', '45', '50', '55'],
+    chartTitle: 'Altitude Profile — Sim Run #12 (ft vs sec)',
+  },
+  {
+    id: '003',
+    category: 'Airframe',
+    title: 'Falcon-7 Airframe',
+    desc: '7.5 cm diameter carbon-fibrefin-can system for 10k ft class rockets. Layup optimised for minimal weight.',
+    status: 'active',
+    alt: 10400,
+    mass: '1.68 kg',
+    thrust: '—',
+    specs: { 'Diameter': '75 mm OD', 'Length': '1,820 mm', 'Material': 'CF 3K plain weave', 'Wall thickness': '1.2 mm', 'Fin sweep': '45°, 4-fin', 'Est. Cd': '0.38 (CFD)' },
+    logs: [
+      { date: '2025-03-30', title: 'Fin bonding complete', body: 'All four fins epoxied to boattail with West System 105/207. Fillet radius 8 mm. 24 h cure under vacuum bag.' },
+      { date: '2025-02-11', title: 'CFD — second iteration', body: 'Reduced fin taper ratio from 0.65 to 0.48. Simulated Cd dropped from 0.44 to 0.38 at Mach 0.7. Stability margin 2.1 cal.' },
+      { date: '2024-10-22', title: 'Layup session 1', body: 'Fuselage tube hand-laid on aluminium mandrel. 4 layers CF + 1 layer 80 g/m² glass inner liner. Pre-preg cure at 80°C 4 h.' },
+    ],
+    progress: [{ label: 'Design / CAD', pct: 100 }, { label: 'Fabrication', pct: 95 }, { label: 'Structural test', pct: 50 }, { label: 'Integration', pct: 20 }],
+    chartData: [12, 28, 36, 32, 28, 24, 20, 16, 14, 12, 10, 8],
+    chartLabels: ['0°', '15°', '30°', '45°', '60°', '75°', '90°', '105°', '120°', '135°', '150°', '165°'],
+    chartTitle: 'Cp Distribution (normalised) vs Angle of Attack',
+  },
+  {
+    id: '004',
+    category: 'Recovery',
+    title: 'Drogue & Main Deployment System',
+    desc: 'Dual-deploy parachute system with redundant e-match firing. 18" drogue, 72" main. Tested to 800 ft/s ejection.',
+    status: 'dev',
+    alt: '—',
+    mass: '0.92 kg',
+    thrust: '—',
+    specs: { 'Drogue dia.': '457 mm', 'Main dia.': '1,829 mm', 'Descent rate': '≤4.5 m/s at 10 kg', 'Ejection charge': 'BKNO₃, 0.8–1.2 g', 'Deployment alt.': 'Drogue: apogee / Main: 300 m', 'Packing method': 'Z-fold + deploy bag' },
+    logs: [
+      { date: '2025-04-10', title: 'Charge sizing test #4', body: 'Black powder charge 1.0 g at 8 PSI internal pressure. Consistent deployment at shear pin rated 45 lbf. No bag damage.' },
+      { date: '2025-01-15', title: 'Descent rate calc', body: 'Verified 4.2 m/s touchdown at 12 kg system mass using updated Cd = 0.75 for hemispherical main. Meets 4.5 m/s site limit.' },
+    ],
+    progress: [{ label: 'Parachute sizing', pct: 100 }, { label: 'Ejection charge dev', pct: 88 }, { label: 'Full-scale drop test', pct: 40 }, { label: 'Integration', pct: 10 }],
+    chartData: [48, 46, 43, 40, 38, 36, 35, 34, 34, 34, 34, 34],
+    chartLabels: ['2k', '3k', '4k', '5k', '6k', '7k', '8k', '9k', '10k', '11k', '12k', '13k'],
+    chartTitle: 'Descent Rate (ft/min) vs Altitude ft',
+  },
+  {
+    id: '005',
+    category: 'Propulsion',
+    title: 'SRAD Hybrid Motor — O2 / HTPB',
+    desc: 'Student-researched-and-designed hybrid motor. LOX oxidiser, HTPB solid fuel grain. Target 1,800 N average thrust.',
+    status: 'dev',
+    alt: '—',
+    mass: '8.4 kg',
+    thrust: '1800 N',
+    specs: { 'Propellant class': 'O-class (~5,000 Ns)', 'Oxidiser': 'Liquid O₂ (LOX)', 'Fuel': 'HTPB R-45M', 'Chamber pressure': '3.8 MPa nominal', 'Nozzle': 'Graphite, Ae/At 8.2', 'Target Isp': '220 s (vac)' },
+    logs: [
+      { date: '2025-04-14', title: 'Injector cold-flow #3', body: 'Water flow test at 4.1 MPa. Cd measured 0.62 vs design 0.65. Mass flow within 4.6%. Adjusting orifice diameter before hot fire.' },
+      { date: '2025-03-01', title: 'Fuel grain cast #2', body: 'Second HTPB grain cast in 76 mm OD tube. Port geometry: 25 mm circular. Shore A hardness 42 — acceptable. Cure 72 h at 60°C.' },
+      { date: '2024-12-20', title: 'Chamber burst test', body: 'Aluminium 6061 test article pressurised to 6.2 MPa hydrostatic. No failure. Design burst margin >1.5× confirmed.' },
+    ],
+    progress: [{ label: 'Design freeze', pct: 100 }, { label: 'Injector dev', pct: 75 }, { label: 'Fuel grain', pct: 60 }, { label: 'Hot fire', pct: 0 }],
+    chartData: [0, 200, 800, 1600, 1820, 1790, 1800, 1810, 1780, 1750, 900, 100],
+    chartLabels: ['0', '0.5', '1', '1.5', '2', '2.5', '3', '3.5', '4', '4.5', '5', '5.5'],
+    chartTitle: 'Simulated Thrust Curve (N vs sec)',
+  },
+  {
+    id: '006',
+    category: 'Ground Support',
+    title: 'Launch Control System',
+    desc: 'Wireless launch control console with safety interlock chain, key arming, and pad camera integration.',
+    status: 'active',
+    alt: '—',
+    mass: '3.1 kg',
+    thrust: '—',
+    specs: { 'Range': '≥800 m RF', 'Protocol': '900 MHz FHSS', 'Interlock chain': '5-stage', 'Output': '12 V, 10 A max', 'Display': '7" TFT + telemetry overlay', 'Power': '3S LiPo, 5200 mAh' },
+    logs: [
+      { date: '2025-02-28', title: 'RF range test', body: 'Verified 950 m line-of-sight range with 0% packet loss at 802 m, 2% at 950 m. Acceptable for 800 m pad separation.' },
+      { date: '2024-11-11', title: 'Interlock redesign', body: 'Added 5th interlock (key + arm + continuity + verify + fire). Compliant with Tripoli safety code §3.2.' },
+    ],
+    progress: [{ label: 'Hardware', pct: 100 }, { label: 'Firmware', pct: 96 }, { label: 'Safety audit', pct: 80 }, { label: 'Field use', pct: 55 }],
+    chartData: [100, 100, 99, 98, 97, 96, 92, 80, 60, 30, 10, 2],
+    chartLabels: ['100', '200', '300', '400', '500', '600', '700', '800', '900', '1000', '1100', '1200'],
+    chartTitle: 'RF Link Quality (%) vs Distance (m)',
+  },
+  {
+    id: '007',
+    category: 'Simulation',
+    title: '6-DOF Flight Simulator',
+    desc: 'Python-based 6-degree-of-freedom flight simulator with atmospheric model, wind shear, and Monte Carlo dispersion.',
+    status: 'active',
+    alt: '—',
+    mass: '—',
+    thrust: '—',
+    specs: { 'Language': 'Python 3.11', 'Atmo model': 'ISA 1976 + wind shear', 'Integrator': 'RK4 / RK45 adaptive', 'Output': 'KML, CSV, HTML report', 'Monte Carlo': 'N=1000 default', 'Validation': 'vs OpenRocket ±1.2% Δalt' },
+    logs: [
+      { date: '2025-04-05', title: 'Wind shear model added', body: 'Integrated Hellmann power-law wind shear profile. Dispersion ellipse now accounts for varying wind with altitude. 8% wider than flat-wind estimate.' },
+      { date: '2025-01-08', title: 'Monte Carlo validation', body: 'N=1000 runs, Kestrel-1 config. Mean apogee 9,840 ft, σ=310 ft. 3σ landing ellipse 620 m × 440 m. Published to team wiki.' },
+    ],
+    progress: [{ label: 'Core physics', pct: 100 }, { label: 'Atmosphere model', pct: 100 }, { label: 'Monte Carlo', pct: 88 }, { label: 'UI / reporting', pct: 50 }],
+    chartData: [4, 8, 16, 38, 72, 120, 140, 120, 82, 48, 24, 8],
+    chartLabels: ['9.0', '9.2', '9.4', '9.6', '9.8', '10.0', '10.2', '10.4', '10.6', '10.8', '11.0', '11.2'],
+    chartTitle: 'Apogee Distribution — Monte Carlo N=1000 (×100 ft)',
+  },
+  {
+    id: '008',
+    category: 'Structures',
+    title: 'Nose Cone Tooling & Layup',
+    desc: 'Von Kármán ogive nose cone in carbon fibre. Aluminium split mould, autoclave-capable, for 75 mm airframe.',
+    status: 'archive',
+    alt: '—',
+    mass: '0.28 kg',
+    thrust: '—',
+    specs: { 'Profile': 'Von Kármán ogive, FineCN 0.40', 'Length': '320 mm', 'Diameter': '75 mm', 'Wall': '1.0 mm CF + foam core tip', 'Surface finish': 'Ra < 0.8 µm (polished)', 'Mould material': '7075-T6 Al' },
+    logs: [
+      { date: '2024-08-14', title: 'Final part acceptance', body: 'Part mass 278 g vs design 270 g (+3%). Wall thickness tolerance within ±0.08 mm across all measurement points. Accepted.' },
+      { date: '2024-06-01', title: 'Mould completed', body: 'Split-line mould machined on Haas VF-2. Surface polished to mirror finish. Wax release applied × 6 coats.' },
+    ],
+    progress: [{ label: 'Mould', pct: 100 }, { label: 'Layup', pct: 100 }, { label: 'Finish', pct: 100 }, { label: 'Flight log', pct: 100 }],
+    chartData: [8, 12, 18, 26, 36, 50, 68, 90, 118, 140, 148, 140],
+    chartLabels: ['0', '28', '56', '84', '112', '140', '168', '196', '224', '252', '280', '308'],
+    chartTitle: 'Wall Thickness Profile (µm ×10) vs Position (mm)',
+  },
+  {
+    id: '009',
+    category: 'Payload',
+    title: 'Micro-G Experiment Module',
+    desc: 'Self-contained biological payload module for ~30 s of microgravity at apogee. Flown twice at 12,000 ft.',
+    status: 'dev',
+    alt: 12000,
+    mass: '0.62 kg',
+    thrust: '—',
+    specs: { 'Diameter': '54 mm (54 mm bay)', 'Experiment': 'Yeast fermentation rate', 'µ-g window': '~28 s (above drogue)', 'Sensors': 'Temp, humidity, accel', 'Data storage': '16 GB microSD', 'Flights to date': '2' },
+    logs: [
+      { date: '2025-03-22', title: 'Flight #2 data review', body: 'Micro-g window 31.4 s. Fermentation rate 18% higher in-flight vs ground control. Temperature held 21±0.8°C. Result submitted for SAE paper.' },
+      { date: '2024-09-18', title: 'Flight #1 — anomaly noted', body: 'Heater circuit tripped at 6,200 ft ascent due to voltage sag. Temperature dropped to 14°C. Module redesigned with dedicated LDO for heater.' },
+    ],
+    progress: [{ label: 'Design', pct: 100 }, { label: 'Flight #1', pct: 100 }, { label: 'Flight #2', pct: 100 }, { label: 'Paper submission', pct: 65 }],
+    chartData: [210, 214, 215, 217, 219, 223, 228, 226, 222, 218, 214, 212],
+    chartLabels: ['-10', '-5', '0', '5', '10', '15', '20', '25', '30', '35', '40', '45'],
+    chartTitle: 'Fermentation Rate (µL CO₂/min) vs Time (s, 0 = apogee)',
+  },
+  {
+    id: '010',
+    category: 'Propulsion',
+    title: 'Nozzle Design & CFD Study',
+    desc: 'Design and analysis of converging-diverging nozzles for supersonic exhaust. Parametric geometry study across five area ratios.',
+    status: 'planned',
+    alt: '—',
+    mass: '—',
+    thrust: '—',
+    specs: { 'Software': 'OpenFOAM + Gmsh', 'Turbulence model': 'k-ω SST', 'Mach range': '1.8 – 3.2', 'Ae/At range': '5 – 15', 'Grid cells': '~2.4M (3D)', 'Status': 'Pre-meshing' },
+    logs: [
+      { date: '2025-04-18', title: 'Geometry parameterisation', body: 'Contour nozzle profiles generated via Method of Characteristics in Python for Ae/At = {5, 7, 9, 11, 15}. Exported to STEP for Gmsh.' },
+      { date: '2025-03-30', title: 'Project kickoff', body: 'Scope defined: 5 nozzle geometries, cold flow (air) CFD, compare thrust coefficient Cf across designs. Target completion Q3 2025.' },
+    ],
+    progress: [{ label: 'Geometry', pct: 80 }, { label: 'Meshing', pct: 15 }, { label: 'Simulation runs', pct: 0 }, { label: 'Report', pct: 0 }],
+    chartData: [60, 70, 80, 88, 92, 94, 95, 94, 92, 88, 80, 60],
+    chartLabels: ['1.0', '1.2', '1.4', '1.6', '1.8', '2.0', '2.2', '2.4', '2.6', '2.8', '3.0', '3.2'],
+    chartTitle: 'Expected Thrust Coefficient Cf vs Mach',
+  },
+];
+
+// Rocket SVG for cards
+function rocketSVG(size = 80) {
+  return `<svg width="${size}" height="${size*2}" viewBox="0 0 60 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M30 5 C30 5 45 30 45 65 L15 65 C15 30 30 5 30 5Z" stroke="#0d0d0d" stroke-width="1.2" fill="none"/>
+    <rect x="19" y="65" width="22" height="28" stroke="#0d0d0d" stroke-width="1.2" fill="none"/>
+    <path d="M19 80 L8 95 L19 93Z" stroke="#0d0d0d" stroke-width="1" fill="none"/>
+    <path d="M41 80 L52 95 L41 93Z" stroke="#0d0d0d" stroke-width="1" fill="none"/>
+    <circle cx="30" cy="42" r="6" stroke="#0d0d0d" stroke-width="1" fill="none"/>
+    <line x1="24" y1="65" x2="36" y2="65" stroke="#0d0d0d" stroke-width="1.5"/>
+  </svg>`;
+}
+
+// Category icons
+function categoryIcon(cat) {
+  const icons = {
+    'Propulsion': `<svg width="56" height="56" viewBox="0 0 56 56" fill="none" stroke="#0d0d0d" stroke-width="1"><path d="M28 8 L38 28 L28 48 L18 28 Z"/><circle cx="28" cy="28" r="6"/></svg>`,
+    'Avionics': `<svg width="56" height="56" viewBox="0 0 56 56" fill="none" stroke="#0d0d0d" stroke-width="1"><rect x="12" y="16" width="32" height="24" rx="1"/><line x1="12" y1="28" x2="44" y2="28"/><circle cx="20" cy="22" r="2"/><circle cx="28" cy="22" r="2"/><circle cx="36" cy="22" r="2"/><line x1="20" y1="32" x2="36" y2="32"/></svg>`,
+    'Airframe': `<svg width="56" height="56" viewBox="0 0 56 56" fill="none" stroke="#0d0d0d" stroke-width="1"><rect x="22" y="8" width="12" height="40" rx="1"/><path d="M22 20 L10 30 L22 32"/><path d="M34 20 L46 30 L34 32"/></svg>`,
+    'Recovery': `<svg width="56" height="56" viewBox="0 0 56 56" fill="none" stroke="#0d0d0d" stroke-width="1"><path d="M14 20 Q28 8 42 20 L36 36 L28 40 L20 36 Z"/><line x1="20" y1="36" x2="28" y2="40"/><line x1="36" y1="36" x2="28" y2="40"/></svg>`,
+    'Ground Support': `<svg width="56" height="56" viewBox="0 0 56 56" fill="none" stroke="#0d0d0d" stroke-width="1"><rect x="10" y="18" width="36" height="24" rx="1"/><circle cx="22" cy="30" r="4"/><circle cx="34" cy="30" r="4"/><line x1="10" y1="42" x2="46" y2="42"/></svg>`,
+    'Simulation': `<svg width="56" height="56" viewBox="0 0 56 56" fill="none" stroke="#0d0d0d" stroke-width="1"><polyline points="10,40 18,24 26,32 34,16 44,30"/><line x1="10" y1="42" x2="46" y2="42"/><line x1="10" y1="14" x2="10" y2="42"/></svg>`,
+    'Structures': `<svg width="56" height="56" viewBox="0 0 56 56" fill="none" stroke="#0d0d0d" stroke-width="1"><polygon points="28,8 46,40 10,40"/><line x1="28" y1="8" x2="28" y2="40"/></svg>`,
+    'Payload': `<svg width="56" height="56" viewBox="0 0 56 56" fill="none" stroke="#0d0d0d" stroke-width="1"><rect x="16" y="14" width="24" height="28" rx="2"/><line x1="16" y1="26" x2="40" y2="26"/><circle cx="28" cy="20" r="2"/><line x1="22" y1="32" x2="34" y2="32"/><line x1="22" y1="36" x2="32" y2="36"/></svg>`,
+  };
+  return icons[cat] || rocketSVG(28);
+}
+
+const statusMap = {
+  active: { label: 'Active', cls: 'status-active' },
+  dev: { label: 'In Development', cls: 'status-dev' },
+  archive: { label: 'Complete', cls: 'status-archive' },
+  planned: { label: 'Planned', cls: 'status-planned' },
+};
+
+// Render cards
+const grid = document.getElementById('projectsGrid');
+projects.forEach((p, i) => {
+  const s = statusMap[p.status];
+  const card = document.createElement('div');
+  card.className = 'project-card';
+  card.setAttribute('role', 'button');
+  card.setAttribute('tabindex', '0');
+  card.setAttribute('aria-label', `Open ${p.title}`);
+  card.innerHTML = `
+    <div class="card-image">
+      <span class="card-number">${p.id}</span>
+      <span class="card-status ${s.cls}">${s.label}</span>
+      ${categoryIcon(p.category)}
+    </div>
+    <div class="card-body">
+      <div class="card-category">${p.category}</div>
+      <div class="card-title">${p.title}</div>
+      <div class="card-desc">${p.desc}</div>
+      <div class="card-meta">
+        ${p.alt !== '—' ? `<span><strong>${typeof p.alt === 'number' ? p.alt.toLocaleString() : p.alt}</strong>ft target</span>` : ''}
+        ${p.mass !== '—' ? `<span><strong>${p.mass}</strong>mass</span>` : ''}
+        ${p.thrust !== '—' ? `<span><strong>${p.thrust}</strong>thrust</span>` : ''}
+      </div>
+    </div>
+    <svg class="card-arrow" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5">
+      <line x1="6" y1="22" x2="22" y2="6"/><polyline points="12,6 22,6 22,16"/>
+    </svg>
+  `;
+  card.addEventListener('click', () => openModal(i));
+  card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') openModal(i); });
+  grid.appendChild(card);
+});
+
+// Modal logic
+const overlay = document.getElementById('modalOverlay');
+const modalClose = document.getElementById('modalClose');
+const modalBreadcrumb = document.getElementById('modalBreadcrumb');
+const modalTitle = document.getElementById('modalTitle');
+const modalHeroLabel = document.getElementById('modalHeroLabel');
+const modalHeroBg = document.getElementById('modalHeroBg');
+const modalMain = document.getElementById('modalMain');
+const modalAside = document.getElementById('modalAside');
+
+function openModal(i) {
+  const p = projects[i];
+  const s = statusMap[p.status];
+  modalBreadcrumb.textContent = `Projects / ${p.id} — ${p.category}`;
+  modalTitle.textContent = p.title;
+  modalHeroLabel.textContent = `${p.category} · Project ${p.id}`;
+  modalHeroBg.innerHTML = categoryIcon(p.category);
+
+  const maxBar = Math.max(...p.chartData);
+  const bars = p.chartData.map((v, idx) => {
+    const h = Math.round((v / maxBar) * 100);
+    const isHigh = v === maxBar;
+    return `<div class="chart-bar${isHigh ? ' highlight' : ''}" style="height:${h}%">
+      <span class="chart-bar-label">${p.chartLabels[idx]}</span>
+    </div>`;
+  }).join('');
+
+  modalMain.innerHTML = `
+    <div class="log-section">
+      <div class="log-section-label">Overview</div>
+      <h2>${p.title}</h2>
+      <p>${p.desc} This project is part of the AVS active engineering programme. All data below is from internal test campaigns and simulation runs unless otherwise noted.</p>
+      <p>The team follows a stage-gate development process with design review, fabrication, and verification milestones. Engineering logs below capture key decision points and test outcomes.</p>
+    </div>
+
+    <div class="log-section">
+      <div class="log-section-label">Performance Chart</div>
+      <div class="chart-block">
+        <div class="chart-title">${p.chartTitle}</div>
+        <div class="chart-canvas">${bars}</div>
+        <div class="chart-labels">
+          <span>${p.chartLabels[0]}</span>
+          <span>${p.chartLabels[Math.floor(p.chartLabels.length/2)]}</span>
+          <span>${p.chartLabels[p.chartLabels.length-1]}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="log-section">
+      <div class="log-section-label">Engineering Log</div>
+      <div class="log-entries">
+        ${p.logs.map(l => `
+          <div class="log-entry">
+            <div class="log-date">${l.date}</div>
+            <div class="log-text"><strong>${l.title}</strong>${l.body}</div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `;
+
+  modalAside.innerHTML = `
+    <div class="aside-section">
+      <div class="aside-label">Status</div>
+      <span class="card-status ${s.cls}" style="display:inline-block;margin-bottom:12px;">${s.label}</span>
+    </div>
+
+    <div class="aside-section">
+      <div class="aside-label">Specifications</div>
+      <table class="spec-table">
+        ${Object.entries(p.specs).map(([k, v]) => `<tr><td>${k}</td><td>${v}</td></tr>`).join('')}
+      </table>
+    </div>
+
+    <div class="aside-section">
+      <div class="aside-label">Development Progress</div>
+      ${p.progress.map(pr => `
+        <div class="progress-block">
+          <div class="progress-label">
+            <span>${pr.label}</span>
+            <span>${pr.pct}%</span>
+          </div>
+          <div class="progress-track"><div class="progress-fill" style="width:${pr.pct}%"></div></div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  modalClose.focus();
+}
+
+function closeModal() {
+  overlay.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+modalClose.addEventListener('click', closeModal);
+overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+</script>
+</body>
+</html>
